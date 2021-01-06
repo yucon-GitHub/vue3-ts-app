@@ -1,6 +1,6 @@
 <template>
   <div class="router-view">
-    <button class="cl-main fz-20" @click="addNumber(2)">{{num}}</button>
+    <button class="cl-main fz-20" @click="addNumber(2)">{{total}}</button>
     <hello-world msg="1221" :item="items"></hello-world>
   </div>
 </template>
@@ -14,40 +14,24 @@ export default {
   },
 
   setup() {
-    const data = ref(1);
-    const addNumber = (params: Number) :void => {
-      data.value += params;
+    let data = ref(1);
+    const addNumber = (params: number): number => {
+      return data.value += params;
     };
 
+    const total = computed((): number => data.value += 5);
+
     addNumber(5);
-
-    const total = computed({
-      get: () => {
-       return data.value + 5
-      }
-    });
-
-    const num = computed({
-      get: () => {
-        return total.value + 10
-      }
-    });
-
 
     const items = ref({ name: 'haha', age: 18 });
 
     return {
       addNumber,
       data,
-      total,
-      num,
+      items,
 
-      items
+      total
     };
   }
 }
 </script>
-
-<style scoped>
-
-</style>
